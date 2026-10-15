@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="@android:style/Theme.Material">
+        <item name="android:colorPrimary">#FF16202B</item>
+        <item name="android:colorPrimaryDark">#FF0B1118</item>
+        <item name="android:colorAccent">#FF4ADE80</item>
+        <item name="android:windowBackground">#FF0B1118</item>
+        <item name="android:textColorPrimary">#FFE6EDF3</item>
+        <item name="android:textColorSecondary">#FF94A3B8</item>
+        <item name="android:statusBarColor">#FF0B1118</item>
+    </style>
+
+    <style name="CardTitle">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFE6EDF3</item>
+        <item name="android:paddingBottom">2dp</item>
+    </style>
+
+    <style name="CardBody">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">#FF94A3B8</item>
+        <item name="android:lineSpacingMultiplier">1.15</item>
+    </style>
+
+    <style name="SectionHeader">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FF4ADE80</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="Mono">
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">#FFCBD5E1</item>
+    </style>
+</resources>

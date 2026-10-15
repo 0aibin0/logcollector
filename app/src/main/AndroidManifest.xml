@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.dsh.logcollector">
+
+    <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="34" />
+
+    <!-- ============================ logs & diagnostics ===================== -->
+    <!-- signature|privileged, but grantable with: adb shell pm grant <pkg> android.permission.READ_LOGS -->
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <!-- signature|privileged|development, grantable with: adb shell pm grant <pkg> android.permission.DUMP -->
+    <uses-permission android:name="android.permission.DUMP" />
+
+    <!-- ==================== permissions that unlock more dumpsys ==================== -->
+    <!-- On a real device, `dumpsys activity`, `package`, `batterystats`, `alarm`,
+         `jobscheduler`, `usagestats`, `notification` and ~12 others all refuse with
+         "due to missing android.permission.PACKAGE_USAGE_STATS permission" even when DUMP is
+         already granted. A permission can only be granted with `pm grant` if the app DECLARES
+         it, so these are declared here purely so the documented adb commands actually work.
+         Neither is usable without the user running that command; neither is requested at
+         runtime. -->
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.BATTERY_STATS" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+
+    <!-- ================================ storage =========================== -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
+    <!-- ======================== service / automation ====================== -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
+    <!-- ================================ upload ============================ -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <application
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@style/AppTheme"
+        android:allowBackup="false"
+        android:supportsRtl="true"
+        android:requestLegacyExternalStorage="true"
+        android:usesCleartextTraffic="true">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:configChanges="orientation|screenSize|keyboardHidden|screenLayout">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".LogcatViewerActivity"
+            android:exported="false"
+            android:label="@string/viewer_title"
+            android:configChanges="orientation|screenSize|keyboardHidden|screenLayout" />
+
+        <service
+            android:name=".CollectorService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync|mediaProjection" />
+
+        <receiver
+            android:name=".BootReceiver"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Read-only content provider used only to hand out content:// URIs to the share sheet.
+             Not exported, and it refuses any path outside the log tree. -->
+        <provider
+            android:name=".SilentFileProvider"
+            android:authorities="com.dsh.logcollector.share"
+            android:exported="false"
+            android:grantUriPermissions="true" />
+    </application>
+</manifest>

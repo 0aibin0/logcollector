@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">日志采集</string>
+    <string name="viewer_title">实时日志</string>
+
+    <string name="tab_collect">采集</string>
+    <string name="tab_auto">自动化</string>
+    <string name="tab_settings">设置</string>
+
+    <string name="btn_collect">立即采集</string>
+    <string name="btn_stop">停止</string>
+    <string name="btn_refresh">刷新能力</string>
+    <string name="btn_zip">打包 ZIP</string>
+    <string name="btn_share">分享</string>
+    <string name="btn_upload">上传</string>
+    <string name="btn_viewer">实时日志</string>
+    <string name="btn_grant_projection">授权截屏</string>
+    <string name="btn_open_dir">打开目录</string>
+
+    <string name="hint_idle">就绪</string>
+    <string name="hint_collecting">采集中…</string>
+</resources>
